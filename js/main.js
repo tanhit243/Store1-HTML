@@ -1,25 +1,9 @@
-// debounce function that will wrap our event
-function debounce(fn, delay) {
-    // maintain a timer
-    let timer = null;
-    // closure function that has access to timer
-    return function () {
-        // get the scope and parameters of the function 
-        // via 'this' and 'arguments'
-        let context = this;
-        let args = arguments;
-        // if event is called, clear the timer and start over
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-            fn.apply(context, args);
-        }, delay);
-    }
-}
-
-// Sticky header
+/*
+    Sticky header
+*/
 var header = document.querySelector("header");
 var sticky = header.offsetTop;
-var searchTopIcon = document.querySelector(".search-top__icon");
+var searchTopIcon = $(".search-top__icon");
 var itemNav = document.querySelectorAll(".head-nav > ul > li > a");
 var topBar = document.querySelector("#top-bar");
 
@@ -32,32 +16,55 @@ function stickyHeader() {
     }
 }
 
-// wrap our function in a debounce to fire once 500 seconds have gone by
-// window.addEventListener('scroll', debounce(stickyHeader, 300));
 window.addEventListener('scroll', stickyHeader);
 
 
-var ulList = document.querySelector(".why-choose-shop");
+var ulList = $(".why-choose-shop");
 
-ulList.addEventListener('click',function(e) {
-    if (e.target.nodeName && e.target.nodeName === "I") {
-        e.target.parentNode.children[2].classList.toggle("show");
+
+/* 
+    Click Icon Search
+*/
+var searchForm = $('.search-top__form');
+
+searchTopIcon.click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const liElement     = searchTopIcon.children();
+    let isIconSeatch    = liElement.hasClass('fa-search fa-flip-horizontal');
+    const searchInput = $('.search-top__form__input');
+    searchInput.focus();
+    if (isIconSeatch) {
+        liElement.removeClass('fa-search fa-flip-horizontal').addClass('fa-times');
+        searchForm.css({ display: 'block' });
+        searchForm.animate(
+            { opacity: 1, top: "100%" }, 500, "linear"
+        );
+    } else {
+        liElement.removeClass('fa-times').addClass('fa-search fa-flip-horizontal');
+        searchForm.animate(
+            {
+                opacity: 0,
+                top: "125%"
+            }, 250, 
+            function () {
+                searchForm.css({ display: 'none' });
+            }
+        );
     }
-})
+});
 
-
-
-// SLIDE 
-// var slideProducts = document.querySelector(".wrap-slide-products");
-// var flkty = new Flickity(slideProducts,{
-//     cellAlign: 'left',
-//     contain: true,
-//     pageDots: false,
-//     wrapAround: true,
-    
+// $(window).click(function(){
+//     const liElement = searchTopIcon.children();
+//     let isIconSeatch = liElement.hasClass('fa-search fa-flip-horizontal');
+//     liElement.removeClass('fa-times').addClass('fa-search fa-flip-horizontal');
+//     searchForm.animate(
+//         {
+//             opacity: 0,
+//             top: "125%"
+//         }, 250,
+//         function () {
+//             searchForm.css({ display: 'none' });
+//         }
+//     );
 // });
-
-    // $('.wrap-slide-products').flickity({
-    //     cellAlign: 'left',
-    //     contain: true
-    // });

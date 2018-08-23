@@ -145,6 +145,7 @@ nav.head-nav .head-nav__item a,
 
 .search-top a.search-top__icon {
 	padding: 32px 0px 32px 22px !important;
+	width: 37px;
 }
 .search-top {
 	position: relative;
@@ -152,12 +153,15 @@ nav.head-nav .head-nav__item a,
 
 .search-top__form {
 	display: none;
+	opacity: 0;
 	min-width: 250px;
 	position: absolute;
-	top: 100%;
+	top: 125%;
 	right: 0;
 	border-top: 3px solid #1abc9c;
 	padding: 10px;
+	background: #fff;
+	border: 1px solid #d6d6d6;
 }
 
 .search-top__form .search-top__form__input {
